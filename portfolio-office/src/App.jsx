@@ -1,13 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import gsap from 'gsap';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const viteRef = useRef();
+
+  useEffect(() => {
+    // gsap.from(viteRef.current, {x: window.innerWidth/2, xPercent: -50, y: window.innerHeight/2, yPercent: -50, duration: 2, position: "fixed"})
+    gsap.from(viteRef.current, {
+      y: window.innerHeight / 2,
+      yPercent: -50,
+      opacity: 0,
+      scale: 2,
+      duration: 1,
+      ease: "expo.in"
+    })
+
+  },[]);
 
   return (
     <div className="App">
-      <div>
+      <div ref={viteRef}>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
         </a>
@@ -15,18 +29,6 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
